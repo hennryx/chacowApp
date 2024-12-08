@@ -1,1 +1,44 @@
-<p>user-management works!</p>
+<div class="bg-white rounded-lg min-w-full shadow-sm p-4 ">
+    
+    <div class="flex flex-row justify-between">
+        <h1 class="text-2xl font-semibold text-blue-600 mb-4">All Users</h1>
+    </div>
+
+    <div class="overflow-hidden bg-white rounded-lg shadow-md">
+        <table class="min-w-full table-auto">
+            <thead>
+                <tr class="text-sm leading-normal text-left text-gray-600 shadow-md uppercase bg-[#F0F4FB]">
+                    <th class="px-6 py-3">#</th>
+                    <th class="px-6 py-3">email</th>
+                    <th class="px-6 py-3">first name</th>
+                    <th class="px-6 py-3">middle name</th>
+                    <th class="px-6 py-3">last name</th>
+                    <th class="px-6 py-3">role</th>
+                    <th class="px-6 py-3">Actions</th>
+                </tr>
+            </thead>
+            <tbody class="text-sm font-light text-gray-600">
+                <tr *ngFor="let user of users" class="border-b border-gray-200 hover:bg-gray-100">
+                    <td class="px-6 py-3">{{ user.id }}</td>
+                    <td class="px-6 py-3">{{ user.firstname }}</td>
+                    <td class="px-6 py-3">{{ user.middlename }}</td>
+                    <td class="px-6 py-3">{{ user.lastname }}</td>
+                    <td class="px-6 py-3">{{ user.role }}</td>
+                    <td class="px-6 py-3 relative">
+                        <button class="px-4 py-2 hover:bg-gray-100 cursor-pointer" (click)="openEditModal(user)">
+                            <i class="pi pi-pencil text-blue-500"></i>
+                        </button>
+                    </td>
+                </tr>
+
+                <tr *ngIf="users.length === 0">
+                    <td colspan="7" class="px-6 py-3 text-center font-bold text-lg">No Items</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <AddUser [isEditModalOpen]="isEditModalOpen"
+            (_closeModal)="handleFormModal()" [editUser]="selectedUser">
+        </AddUser>
+    </div>
+</div>

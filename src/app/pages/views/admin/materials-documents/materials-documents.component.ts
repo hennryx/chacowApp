@@ -11,9 +11,6 @@ import { ModalComponent } from "./modal/modal.component";
     styleUrl: './materials-documents.component.css'
 })
 export class MaterialsDocumentsComponent {
-
-    schedulesHeader = ['Title', 'Type', 'Started', 'Published', 'Vol', 'Status', 'Actions'];
-
     filteredSchedules: any = [];
     isToggleActionsOpen: boolean = false;
     filteredMaterials: any = [];

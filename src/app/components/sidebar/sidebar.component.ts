@@ -23,8 +23,6 @@ export class SidebarComponent implements OnInit {
     ngOnInit(): void {
         const userRole = this.authService.getUserRole() || "student";
         this.availableRoutes = accessRoutes[userRole];
-        console.log(this.availableRoutes);
-        
     }
 
     logout() {

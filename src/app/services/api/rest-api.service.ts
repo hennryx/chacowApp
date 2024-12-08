@@ -24,17 +24,18 @@ export class RestApiService {
   }
 
   // GET request with query params, with token
-  getWithQuery<T>(name: string, queryParams: any, token: string): Observable<T> {
+  getWithQuery<T>(name: string, queryParams: any): Observable<T> {
     let params = new HttpParams();
     
-    for (const key in queryParams) {
-      if (queryParams.hasOwnProperty(key)) {
-        params = params.append(key, queryParams[key]);
-      }
+  // Append query params to the HttpParams object
+  for (const key in queryParams) {
+    if (queryParams.hasOwnProperty(key)) {
+      params = params.append(key, queryParams[key]);
     }
+  }
+  
     
-    const headers = this.getHeaders(token);
-    return this.http.get<T>(`${STATICENDPOINT}/${name}`, { headers, params });
+    return this.http.get<T>(`${ENDPOINT}/${name}`, { params });
   }
 
   // POST request, with token

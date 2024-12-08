@@ -25,11 +25,17 @@
                         class="w-full px-4 py-2 mt-1 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" />
                 </div>
 
-                <div class="mb-4">
-                    <label for="type" class="block text-sm font-medium text-gray-700">Type</label>
-                    <input formControlName="type" type="text" placeholder="Type"
-                        class="w-full px-4 py-2 mt-1 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" />
-                </div>
+                <label class="text-sm text-gray-500">Type:
+                    <div class="relative inline-flex items-center w-full">
+
+                        <i class="text-blue-900 pi pi-angle-down absolute left-2 inline-block w-4 h-4"></i>
+                        <select formControlName="type"
+                            class="px-4 w-full py-2 pl-8 bg-white border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 apperance-none text-right">
+                            <option value="Individual" class="text-black">Individual</option>
+                            <option value="Collaborative" class="text-black">Collaborative</option>
+                        </select>
+                    </div>
+                </label>
 
                 <div class="flex flex-row gap-2">
                     <div class="mb-4">

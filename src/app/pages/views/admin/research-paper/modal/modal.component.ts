@@ -15,10 +15,6 @@ export class ModalComponent implements OnChanges {
     @Input() isFormModalOpen: boolean = false
     @Input() editResearch: any = {
         id: 0,
-        subjectcode: '',
-        subjectname: '',
-        description: '',
-        departmentid: 0,
         title: '',
         type: '',
         dateStarted: '',

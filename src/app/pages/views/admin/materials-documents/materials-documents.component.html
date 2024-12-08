@@ -13,12 +13,10 @@
         <table class="min-w-full table-auto">
             <thead>
                 <tr class="text-sm leading-normal text-left text-gray-600 shadow-md uppercase bg-[#F0F4FB]">
-                    <th class="px-6 py-3">Title</th>
-                    <th class="px-6 py-3">Type</th>
-                    <th class="px-6 py-3">Started</th>
-                    <th class="px-6 py-3">Published</th>
-                    <th class="px-6 py-3">Vol</th>
-                    <th class="px-6 py-3">Status</th>
+                    <th class="px-6 py-3">id</th>
+                    <th class="px-6 py-3">title</th>
+                    <th class="px-6 py-3">Description</th>
+                    <th class="px-6 py-3">Url Ref</th>
                     <th class="px-6 py-3">Actions</th>
                 </tr>
             </thead>
@@ -41,7 +39,7 @@
                 </tr>
 
                 <tr *ngIf="filteredMaterials.length === 0">
-                    <td colspan="7" class="px-6 py-3 text-center font-bold text-lg">No Items</td>
+                    <td colspan="5" class="px-6 py-3 text-center font-bold text-lg">No Items</td>
                 </tr>
             </tbody>
         </table>

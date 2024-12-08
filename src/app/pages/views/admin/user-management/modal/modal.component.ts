@@ -4,7 +4,7 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { RestApiService } from '../../../../../services/api/rest-api.service';
 
 @Component({
-    selector: 'AddDocuments',
+    selector: 'AddUser',
     standalone: true,
     imports: [FormsModule, CommonModule, ReactiveFormsModule],
     templateUrl: './modal.component.html',
@@ -12,35 +12,28 @@ import { RestApiService } from '../../../../../services/api/rest-api.service';
 })
 export class ModalComponent implements OnChanges {
     loading: Boolean = false;
-    @Input() isFormModalOpen: boolean = false
-    @Input() editDocuments: any = {
+    @Input() editUser: any = {
         id: 0,
-        materialtitle: '',
-        type: '',
-        description: '',
-        file: '',
+        firstname: '',
+        middlename: '',
+        lastname: '',
+        password: '',
     }
     @Input() isEditModalOpen: boolean = false
     @Output() _closeModal = new EventEmitter<boolean>()
-    @Output() getDocuments = new EventEmitter<void>()
 
     constructor(private restApi: RestApiService) {}
 
-    documentsForm = new FormGroup({
-        materialtitle: new FormControl('', [Validators.required]),
-        type: new FormControl('', [Validators.required]),
-        description: new FormControl('', [Validators.required]),
-        file: new FormControl('', [Validators.required]),
+    userForm = new FormGroup({
+        firstname: new FormControl('', [Validators.required]),
+        middlename: new FormControl(''),
+        lastname: new FormControl('', [Validators.required]),
+        password: new FormControl('', [Validators.required]),
     });
 
     ngOnChanges(changes: SimpleChanges): void {
         if (this.isEditModalOpen) {
-            this.documentsForm.patchValue({
-                materialtitle: this.editDocuments.materialtitle,
-                type: this.editDocuments.type,
-                description: this.editDocuments.description,
-                file: this.editDocuments.file,
-            })
+            this.userForm.patchValue(this.editUser)
         }
     }
 
@@ -48,8 +41,8 @@ export class ModalComponent implements OnChanges {
         this._closeModal.emit(false)
     }
 
-    handleSaveSubject(documents: any) {
+    handleSaveSubject(research: any) {
         /* save here */
-        this.restApi.post("url", documents)
+        this.restApi.post("url", research)
     }
 }
