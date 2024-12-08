@@ -8,7 +8,6 @@ export const accessRoutes: any = {
     ],
     student: [
         { path: "dashboard", title: "Dashboard", component: 'DashboardComponent', icon: 'pi pi-home' },
-        { path: "attendance", title: "Attendance", component: 'AttendanceComponent', icon: 'pi pi-calendar' },
         { path: "profile", title: "Profile", component: 'ProfileComponent', icon: 'pi pi-user' },
     ],
     teacher: [

@@ -4,6 +4,7 @@ import { ProfileComponent } from './pages/views/profile/profile.component';
 import { MaterialsDocumentsComponent } from './pages/views/admin/materials-documents/materials-documents.component';
 import { ResearchPaperComponent } from './pages/views/admin/research-paper/research-paper.component';
 import { UserManagementComponent } from './pages/views/admin/user-management/user-management.component';
+import { DashboardComponent } from './pages/views/users/dashboard/dashboard.component';
 
 
 export const componentMap: any = {
@@ -12,7 +13,9 @@ export const componentMap: any = {
     /* admin comps */
     MaterialsDocumentsComponent,
     ResearchPaperComponent,
-    UserManagementComponent
+    UserManagementComponent,
+    /* users */
+    DashboardComponent
 };
 
 export function generateRoutes(role: string): Routes {

@@ -8,6 +8,7 @@ import { PrivateLayoutComponent } from './pages/private-layout/private-layout.co
 import { ResearchPaperComponent } from './pages/views/admin/research-paper/research-paper.component';
 import { MaterialsDocumentsComponent } from './pages/views/admin/materials-documents/materials-documents.component';
 import { UserManagementComponent } from './pages/views/admin/user-management/user-management.component';
+import { DashboardComponent } from './pages/views/users/dashboard/dashboard.component';
 
 export const routes: Routes = [
     {
@@ -50,6 +51,15 @@ export const routes: Routes = [
                 canActivate: [authGuard],
                 data: { roles: ['admin'] },
             },
+            
+            /* users */
+            {
+                path: "dashboard",
+                component: DashboardComponent,
+                canActivate: [authGuard],
+                data: { roles: ['student', 'teacher'] },
+            },
+
         ]
     },
     { path: 'not-found', component: NotFoundComponent },
