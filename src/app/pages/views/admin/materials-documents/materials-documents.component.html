@@ -22,12 +22,10 @@
             </thead>
             <tbody class="text-sm font-light text-gray-600">
                 <tr *ngFor="let material of filteredMaterials" class="border-b border-gray-200 hover:bg-gray-100">
-                    <td class="px-6 py-3">{{ material.title }}</td>
-                    <td class="px-6 py-3">{{ material.type }}</td>
-                    <td class="px-6 py-3">{{ material.started }}</td>
-                    <td class="px-6 py-3">{{ material.published }}</td>
-                    <td class="px-6 py-3">{{ material.vol }}</td>
-                    <td class="px-6 py-3">{{ material.status }}</td>
+                    <td class="px-6 py-3">{{ material.id }}</td>
+                    <td class="px-6 py-3">{{ material.materialtitle }}</td>
+                    <td class="px-6 py-3">{{ material.description }}</td>
+                    <td class="px-6 py-3">{{ material.urlref }}</td>
                     <td class="px-6 py-3 relative">
                         <button class="px-4 py-2 hover:bg-gray-100 cursor-pointer" (click)="openEditModal(material)">
                             <i class="pi pi-pencil text-blue-500"></i>

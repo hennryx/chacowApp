@@ -20,19 +20,9 @@ export class MaterialsDocumentsComponent implements OnInit {
     isEditModalOpen: boolean = false;
     isFormModalOpen: boolean = false;
 
-    constructor(private restApi: RestApiService) {}
+    constructor(private restApi: RestApiService) { }
     ngOnInit(): void {
-        this.restApi.get('get-all-material').subscribe({
-            next: (response) => {
-                this.filteredMaterials = response;
-                console.log(this.filteredMaterials);
-                
-            },
-            error: (err) => {
-                console.log(err);
-            }
-        })
-        
+        this.handleGetDocuments();
     }
 
     handleAttendanceActions(value: any) {
@@ -59,6 +49,16 @@ export class MaterialsDocumentsComponent implements OnInit {
     }
 
     handleGetDocuments() {
-        
+
+        this.restApi.get('material/all').subscribe({
+            next: (response) => {
+                this.filteredMaterials = response;
+                console.log(this.filteredMaterials);
+
+            },
+            error: (err) => {
+                console.log(err);
+            }
+        })
     }
 }
