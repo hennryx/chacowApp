@@ -24,7 +24,7 @@ export class ResearchPaperComponent implements OnInit {
     }
 
     openEditModal(research: any) {
-
+        this.isEditModalOpen = true;
     }
 
     deleteAction(id: number) {

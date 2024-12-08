@@ -45,5 +45,8 @@
                 </tr>
             </tbody>
         </table>
+
+        <AddDocuments [isFormModalOpen]="isFormModalOpen" [isEditModalOpen]="isEditModalOpen"
+        (_closeModal)="handleFormModal()" [editDocuments]="selectedDocument" (getTeacher)="handleGetDocuments()"></AddDocuments>
     </div>
 </div>

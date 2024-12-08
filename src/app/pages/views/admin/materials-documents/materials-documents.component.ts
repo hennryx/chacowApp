@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { TableComponent } from "../../../../components/table/table.component";
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ModalComponent } from "./modal/modal.component";
