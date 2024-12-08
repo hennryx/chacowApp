@@ -1,5 +1,5 @@
 <div class="bg-white rounded-lg min-w-full shadow-sm p-4 ">
-    
+
     <div class="flex flex-row justify-between">
         <h1 class="text-2xl font-semibold text-blue-600 mb-4">Research papers</h1>
         <div class="flex gap-2 flex-row items-center">
@@ -28,9 +28,9 @@
                 <tr *ngFor="let research of filteredResearch" class="border-b border-gray-200 hover:bg-gray-100">
                     <td class="px-6 py-3">{{ research.title }}</td>
                     <td class="px-6 py-3">{{ research.type }}</td>
-                    <td class="px-6 py-3">{{ research.started }}</td>
-                    <td class="px-6 py-3">{{ research.published }}</td>
-                    <td class="px-6 py-3">{{ research.vol }}</td>
+                    <td class="px-6 py-3">{{ research.datestarted }}</td>
+                    <td class="px-6 py-3">{{ research.publicationdate || "Not published" }}</td>
+                    <td class="px-6 py-3">{{ research.volumenumber }}</td>
                     <td class="px-6 py-3">{{ research.status }}</td>
                     <td class="px-6 py-3 relative">
                         <button class="px-4 py-2 hover:bg-gray-100 cursor-pointer" (click)="openEditModal(research)">

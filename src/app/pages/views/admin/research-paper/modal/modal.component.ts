@@ -1,82 +1,119 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
+import {
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { RestApiService } from '../../../../../services/api/rest-api.service';
+import { Paper } from '../../../../../../../models';
 
 @Component({
-    selector: 'AddResearch',
-    standalone: true,
-    imports: [FormsModule, CommonModule, ReactiveFormsModule],
-    templateUrl: './modal.component.html',
-    styleUrl: './modal.component.css'
+  selector: 'AddResearch',
+  standalone: true,
+  imports: [FormsModule, CommonModule, ReactiveFormsModule],
+  templateUrl: './modal.component.html',
+  styleUrl: './modal.component.css',
 })
 export class ModalComponent implements OnChanges {
-    loading: Boolean = false;
-    @Input() isFormModalOpen: boolean = false
-    @Input() editResearch: any = {
-        id: 0,
-        title: '',
-        type: '',
-        dateStarted: '',
-        dateCompleted: '',
-        publicationCompleted: '',
-        journal: '',
-        volumeNumber: '',
-        issue: '',
-        issn: '',
-        doi: '',
-        url: '',
-        keywords: '',
-        taggedUsers: '',
+  loading: Boolean = false;
+  @Input() isFormModalOpen: boolean = false;
+  @Input() editResearch: any = {
+    id: 0,
+    title: '',
+    type: '',
+    dateStarted: '',
+    dateCompleted: '',
+    publicationCompleted: '',
+    journal: '',
+    volumeNumber: '',
+    issue: '',
+    issn: '',
+    doi: '',
+    url: '',
+    keywords: '',
+    taggedUsers: '',
+  };
+  @Input() isEditModalOpen: boolean = false;
+  @Output() _closeModal = new EventEmitter<boolean>();
+  @Output() getResearch = new EventEmitter<void>();
+
+  constructor(private restApi: RestApiService) {}
+
+  researchForm = new FormGroup({
+    title: new FormControl('', [Validators.required]),
+    type: new FormControl('', [Validators.required]),
+    datestarted: new FormControl('', [Validators.required]),
+    datecompleted: new FormControl(''),
+    publicationdate: new FormControl(''),
+    journal: new FormControl('', [Validators.required]),
+    volumenumber: new FormControl('', [Validators.required]),
+    issue: new FormControl('', [Validators.required]),
+    issn: new FormControl('', [Validators.required]),
+    doi: new FormControl('', [Validators.required]),
+    url: new FormControl('', [Validators.required]),
+    keywords: new FormControl('', [Validators.required]),
+    taggeduseremail: new FormControl(''),
+  });
+
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(this.editResearch);
+
+    if (this.isEditModalOpen) {
+      this.researchForm.patchValue({
+        title: this.editResearch.title,
+        type: this.editResearch.type,
+        datestarted: this.editResearch.datestarted,
+        datecompleted: this.editResearch.datecompleted,
+        publicationdate: this.editResearch.publicationdate,
+        journal: this.editResearch.journal,
+        volumenumber: this.editResearch.volumenumber,
+        issue: this.editResearch.issue,
+        issn: this.editResearch.issn,
+        doi: this.editResearch.doi,
+        url: this.editResearch.url,
+        keywords: this.editResearch.keywords,
+        taggeduseremail: this.editResearch.taggeduser
+          .map((x: any) => x.useremail)
+          .join(', '),
+      });
     }
-    @Input() isEditModalOpen: boolean = false
-    @Output() _closeModal = new EventEmitter<boolean>()
-    @Output() getResearch = new EventEmitter<void>()
+  }
 
-    constructor(private restApi: RestApiService) {}
+  closeModal() {
+    this._closeModal.emit(false);
+  }
 
-    researchForm = new FormGroup({
-        title: new FormControl('', [Validators.required]),
-        type: new FormControl('', [Validators.required]),
-        dateStarted: new FormControl('', [Validators.required]),
-        dateCompleted: new FormControl(''),
-        publicationCompleted: new FormControl(''),
-        journal: new FormControl('', [Validators.required]),
-        volumeNumber: new FormControl('', [Validators.required]),
-        issue: new FormControl('', [Validators.required]),
-        issn: new FormControl('', [Validators.required]),
-        doi: new FormControl('', [Validators.required]),
-        url: new FormControl('', [Validators.required]),
-        keywords: new FormControl('', [Validators.required]),
-        taggedUsers: new FormControl(''),
-    });
+  handleSave(research: any) {
+    const endpoint =
+      'http://localhost:3000/api/v1/paper/' +
+      (this.editResearch?.id ? 'update' : 'add');
 
-    ngOnChanges(changes: SimpleChanges): void {
-        if (this.isEditModalOpen) {
-            this.researchForm.patchValue({
-                title: this.editResearch.title,
-                type: this.editResearch.type,
-                dateStarted: this.editResearch.dateStarted,
-                dateCompleted: this.editResearch.dateCompleted,
-                publicationCompleted: this.editResearch.publicationCompleted,
-                journal: this.editResearch.journal,
-                volumeNumber: this.editResearch.volumeNumber,
-                issue: this.editResearch.issue,
-                issn: this.editResearch.issn,
-                doi: this.editResearch.doi,
-                url: this.editResearch.url,
-                keywords: this.editResearch.keywords,
-                taggedUsers: this.editResearch.taggedUsers,
-            })
-        }
-    }
+    let data = this.researchForm.value;
 
-    closeModal() {
-        this._closeModal.emit(false)
-    }
+    fetch(endpoint, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        ...data,
+        id: this.editResearch.id ? this.editResearch.id : undefined,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => console.log(data))
+      .catch((err) => console.error(err));
 
-    handleSaveSubject(research: any) {
-        /* save here */
-        this.restApi.post("url", research)
-    }
+    // this.restApi.post('api/v1/paper/add', data);
+  }
 }
