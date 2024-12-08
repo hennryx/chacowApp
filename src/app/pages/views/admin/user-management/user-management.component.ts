@@ -26,7 +26,8 @@ export class UserManagementComponent implements OnInit{
     }
 
     openEditModal(user: any) {
-        this.isEditModalOpen = !this.isEditModalOpen
+        this.isEditModalOpen = !this.isEditModalOpen;
+        this.selectedUser = user;
     }
 
     getUsers() {
