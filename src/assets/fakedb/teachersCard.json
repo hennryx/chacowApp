@@ -1,0 +1,44 @@
+[
+    {
+        "id": 1,
+        "fullName": {
+            "fName": "Hennryx",
+            "mName": "R.",
+            "lName": "Samson",
+            "suffix": ""
+        },
+        "department": "CICT",
+        "totalAttended": 12,
+        "totalClassToday": 2,
+        "totalSubjects": 2,
+        "missedClass": 0
+    },
+    {
+        "id": 2,
+        "fullName": {
+            "fName": "Dan Ivan",
+            "mName": "",
+            "lName": "Rosete",
+            "suffix": ""
+        },
+        "department": "CICT",
+        "totalAttended": 12,
+        "totalClassToday": 2,
+        "totalSubjects": 2,
+        "missedClass": 0
+    },
+    {
+        "id": 2,
+        "fullName": {
+            "fName": "Ivan",
+            "mName": "R.",
+            "lName": "Bulacan",
+            "suffix": "II"
+        },
+        "department": "BSCS",
+        "totalAttended": 12,
+        "totalClassToday": 2,
+        "totalSubjects": 2,
+        "missedClass": 0
+    }
+]

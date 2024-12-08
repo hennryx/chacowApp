@@ -1,0 +1,20 @@
+@keyframes shimmer {
+    0% {
+      background-position: -1000px 0;
+    }
+    100% {
+      background-position: 1000px 0;
+    }
+  }
+  
+  .bg-gray-200 {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 2000px 100%;
+    animation: shimmer 2s infinite;
+  }
+  
+  select {
+    -webkit-appearance: none; /* Safari */
+    -moz-appearance: none;    /* Firefox */
+    appearance: none;         /* Modern browsers */
+  }

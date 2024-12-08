@@ -1,0 +1,41 @@
+/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+/* Success Toast */
+.p-toast-message-success {
+    @apply bg-green-500 text-white rounded-lg shadow-lg;
+}
+  
+  /* Error Toast */
+.p-toast-message-error {
+    @apply bg-red-500 text-white rounded-lg shadow-lg;
+}
+  
+  /* Info Toast */
+.p-toast-message-info {
+    @apply bg-blue-500 text-white rounded-lg shadow-lg;
+}
+  
+  /* Warning Toast */
+.p-toast-message-warn {
+    @apply bg-yellow-500 text-white rounded-lg shadow-lg;
+}
+  
+  /* Toast container (shared styles) */
+.p-toast {
+    @apply rounded-lg shadow-lg;
+}
+  
+  /* Shared styles for all Toast messages */
+.p-toast-message {
+    @apply p-4;
+}
+/* Global Confirmation Dialog Styles */
+
+
+  

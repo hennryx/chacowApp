@@ -1,0 +1,56 @@
+<div class="flex w-full font-sans">
+    <div class="w-20 border-r border-gray-200">
+        <div class="h-[4%] border-b border-gray-100 flex items-center justify-center text-xs"></div>
+        <div *ngFor="let hour of hours"
+            class="h-[6.25%] border-b border-gray-100 flex items-center justify-center text-xs">
+            {{ hour > 12 ? hour - 12 + ' PM' : hour + ' AM' }}
+        </div>
+    </div>
+
+    <div class="flex-grow">
+        <div class="flex border-b border-gray-200">
+            <div *ngFor="let day of days" class="flex-1 text-center p-2 font-bold">
+                {{ day }}
+            </div>
+        </div>
+
+        <div class="grid grid-cols-5 h-full">
+            <ng-container *ngFor="let day of days">
+                <div class="flex flex-col h-full">
+                    <!-- Each day column -->
+                    <ng-container *ngFor="let hour of hours">
+                        <div class="border border-gray-100 relative h-[60px]" [attr.data-day]="day"
+                            [attr.data-hour]="hour">
+                            <!-- Schedules for this day and hour -->
+                            <!-- <ng-container *ngFor="let schedule of groupedSchedules[day + '-' + hour]">
+                                <div *ngIf="isScheduleVisible(schedule, hour)"
+                                    class="absolute w-full text-white p-1 rounded text-xs truncate {{ schedule.color }}"
+                                    [ngStyle]="getScheduleStyle(schedule, hour)">
+                                    {{ schedule.title }}
+                                    <div class="text-[0.7em]">
+                                        {{ formatTime(schedule.startTime) }} -
+                                        {{ formatTime(schedule.startTime + schedule.duration) }}
+                                    </div>
+                                </div>
+                            </ng-container> -->
+                            <ng-container *ngFor="let schedule of groupedSchedules[day + '-' + hour]">
+                                <div *ngIf="isScheduleVisible(schedule, hour)"
+                                    class="absolute w-full text-white p-1 rounded text-xs truncate {{ schedule.color }}"
+                                    [ngStyle]="getScheduleStyle(schedule, hour)">
+                                    {{ schedule.title }}
+                                    <div class="text-[0.7em]">
+                                        {{ formatTime(schedule.startTime) }} -
+                                        {{ formatTime(schedule.startTime + schedule.duration) }}
+                                    </div>
+                                </div>
+                            </ng-container>
+                            
+                        </div>
+                    </ng-container>
+                </div>
+            </ng-container>
+        </div>
+
+
+    </div>
+</div>

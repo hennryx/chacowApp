@@ -1,0 +1,87 @@
+<Table-loading *ngIf="isloading"></Table-loading>
+
+<div class="mx-10 flex flex-col gap-4" *ngIf="!isloading">
+    <h2 class="text-2xl font-semibold text-blue-600">Schedules</h2>
+    <p class="text-sm text-gray-500 mb-10">Schedules / {{breedcrumb}}</p>
+
+    <div class="bg-white rounded-lg shadow-sm p-4 flex flex-col gap-4">
+        <div class="flex flex-row justify-between">
+            <h1 class="text-2xl font-semibold text-blue-600 mb-4">Schedules</h1>
+
+            <div class="flex gap-2 flex-row  items-center">
+                <Program (selectedProgram)="filterByProgram($event)" [isFull]="false"/>
+                        
+                <button
+                    (click)="openFormModal()"
+                    class="px-4 py-2 bg-white border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"> 
+                    <i class="pi pi-plus text-xs mr-2" ></i>
+                    Add 
+                </button>
+            </div>
+        </div>
+
+        <div class="overflow-hidden bg-white rounded-lg shadow-md">
+            <table class="min-w-full table-auto">
+                <thead>
+                    <tr class="text-sm leading-normal text-left text-gray-600 shadow-md uppercase bg-[#F0F4FB]">
+                        <th class="px-6 py-3">#</th>
+                        <th class="px-6 py-3">Time Start</th>
+                        <th class="px-6 py-3">Time End</th>
+                        <th class="px-6 py-3">Subject</th>
+                        <th class="px-6 py-3">Teacher</th>
+                        <th class="px-6 py-3">Class days</th>
+                        <th class="px-6 py-3">Department</th>
+                        <th class="px-6 py-3">Batch</th>
+                        <th class="px-6 py-3" colspan="2">Actions</th>
+
+                    </tr>
+                </thead>
+                <tbody class="text-sm font-light text-gray-600">
+                    <tr
+                        *ngFor="let schedule of filteredSchedules"
+                        class="border-b border-gray-200 hover:bg-gray-100"
+                    >
+                        <td class="px-6 py-3">{{ schedule.id }}</td>
+                        <td class="px-6 py-3">{{ schedule.start }}</td>
+                        <td class="px-6 py-3">{{ schedule.end }}</td>
+                        <td class="px-6 py-3">{{ schedule.subject.subjectname }}</td>
+                        <td class="px-6 py-3">{{ schedule.teacher.firstname + " " + schedule.teacher.lastname }}</td>
+                        <td class="px-6 py-3">{{ schedule.every }}</td>
+                        <td class="px-6 py-3">{{ schedule.subject.department.depname }}</td>
+                        <td class="px-6 py-3">{{ schedule.batch.batchname }}</td>
+                        <td class="px-6 py-3 relative" colspan="2"> 
+                            <button
+                                (click)="toggleActions(schedule)"
+                                class="px-3 py-1 text-gray-600 bg-gray-200 rounded-lg hover:bg-gray-300">
+                                <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="inline-block w-4 h-4">
+                                    <circle cx="5" cy="10" r="2" fill="#000000"></circle>
+                                    <circle cx="10" cy="10" r="2" fill="#000000"></circle>
+                                    <circle cx="15" cy="10" r="2" fill="#000000"></circle>
+                                </svg>
+                            </button>
+                            <div
+                                *ngIf="isToggleActionsOpen && selectedSchedule?.id === schedule.id"
+                                class="absolute top-0 right-0 mt-2 max-w-sm bg-white border rounded-lg shadow-lg z-10">
+                                <button  class="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                                (click)="openEditModal(schedule)">
+                                <i class="pi pi-pencil text-blue-500" ></i>
+                                </button>
+                                <button  class="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                                (click)="deleteSchedule(schedule)">
+                                <i class="pi pi-trash text-red-500" ></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <Add-schedule 
+        (_closeModal)="closeModal($event)" 
+        [isFormModalOpen]="isFormModalOpen" 
+        [isEditModalOpen]="isEditModalOpen"  
+        [editSchedule]="selectedSchedule"
+        (_updateSchedule)="handleChange()"
+    />
+</div>

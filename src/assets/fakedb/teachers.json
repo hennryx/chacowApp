@@ -1,0 +1,63 @@
+[
+    {
+        "id": 1,
+        "fullName": {
+            "fName": "Hennryx",
+            "mName": "R.",
+            "lName": "Samson",
+            "suffix": ""
+        },
+        "department": "CICT",
+        "totalAttended": 12,
+        "totalClassToday": 2,
+        "totalSubjects": 2,
+        "missedClass": 0,
+        "classesToday": [
+            {
+              "id": 1,
+              "Subject": "IT-WSO6",
+              "Time start": "08:00", 
+              "Time end": "12:00"
+            },
+            {
+              "id": 2,
+              "Subject": "Math-101",
+              "Time start": "09:00",
+              "Time end": "11:00"
+            },
+            {
+              "id": 3,
+              "Subject": "Eng-205",
+              "Time start": "10:00",
+              "Time end": "12:00"
+            }
+        ],
+        "attendanceHistory": [
+            {
+              "id": 1,
+              "Subject": "IT-WSO6",
+              "Date": "Aug, 01 2024", 
+              "Time start": "08:00", 
+              "Time end": "12:00", 
+              "Status": "Present"
+            },
+            {
+              "id": 2,
+              "Subject": "Math-101",
+              "Date": "Aug, 01 2024", 
+              "Time start": "09:00",
+              "Time end": "11:00",
+              "Status": "Present"
+                      
+            },
+            {
+              "id": 3,
+              "Subject": "Eng-205",
+              "Date": "Aug, 01 2024", 
+              "Time start": "10:00",
+              "Time end": "12:00",
+              "Status": "Present"
+            }
+          ]
+    }
+]

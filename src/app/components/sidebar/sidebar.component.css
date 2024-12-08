@@ -1,0 +1,9 @@
+.is-active  {
+    padding: 5px;
+    background-color: #012a7027;
+    border-radius: 4px;
+}
+
+li a label {
+    cursor: pointer;
+}
