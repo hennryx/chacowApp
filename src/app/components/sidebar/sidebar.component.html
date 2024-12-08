@@ -24,6 +24,15 @@
             </a>
         </li>
 
+        <li class="items-center space-x-4 cursor-pointer">
+            <a (click)="logout()" 
+            [ngClass]="{ 'justify-start w-40': isOpen, 'justify-center': !isOpen}" 
+            class="router-link flex items-center text-black hover:text-blue-400 hover:bg-opacity-50 focus:outline-none focus:text-blue-400 focus:bg-opacity-50 overflow-hidden gap-4"
+        >
+                <i class="pi pi-sign-out text-blue-900"></i>
+                <label class="text-blue-900 font-medium text-sm" [ngClass]="{ 'block': isOpen, 'hidden': !isOpen}">Logout</label>
+            </a>
+        </li>
         <hr>
     </ul>
 </nav>

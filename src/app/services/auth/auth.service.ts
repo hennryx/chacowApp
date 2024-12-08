@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 import { ENDPOINT } from "../index"
+import { UserData } from '../../models/userData';
 
 @Injectable({
   providedIn: 'root'
@@ -70,7 +71,7 @@ export class AuthService {
         
         if (token) {
             const headers = { Authorization: `Bearer ${token}` };
-            return this.http.get(`${ENDPOINT}/auth/${id}`, { headers })
+            return this.http.get<UserData>(`${ENDPOINT}/auth/${id}`, { headers })
         }
         return null;
     }

@@ -17,7 +17,6 @@ export class RegisterComponent {
         firstname: new FormControl('', [Validators.required]),
         middlename: new FormControl(''),
         lastname: new FormControl('', [Validators.required]),
-        suffix: new FormControl(''),
         email: new FormControl('', [Validators.required, Validators.email]),
         password: new FormControl('', [ Validators.required, Validators.minLength(8) ]),
         confirmPassword: new FormControl('', [ Validators.required ]),
@@ -55,6 +54,7 @@ export class RegisterComponent {
         const data = {
             ...res,
             password, 
+            role: "student"
         }
 
         if(password !== confirmPassword) {

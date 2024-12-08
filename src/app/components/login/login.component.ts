@@ -4,7 +4,9 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth/auth.service';
 import { MessageService } from 'primeng/api';
 import { CommonModule } from '@angular/common';
-
+import { accessRoutes } from '../../config/access.config';
+import { UserData } from '../../models/userData';
+  
 @Component({
     selector: 'Login',
     standalone: true,
@@ -20,7 +22,7 @@ export class LoginComponent {
         rememberMe: new FormControl(false)
     });
     errorMsg: string = '';
-    passwordFieldType: string = 'password'; // default is 'password'
+    passwordFieldType: string = 'password';
 
     constructor(private router: Router, private authService: AuthService, private messageService: MessageService) {
         const storedEmail = localStorage.getItem('rememberedEmail');
@@ -51,10 +53,12 @@ export class LoginComponent {
                     this.authService.setUserId(response.id);
 
                     this.authService.fetchUserData()?.subscribe({
-                        next: (userData) => {
+                        next: (userData: UserData) => {
                             this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Successfully login' });
+                            
+                            let access = accessRoutes[userData.role];
                             this.authService.setUserData(userData);
-                            this.router.navigate(['/dashboard']);
+                            this.router.navigate([access[0].path]);
                         },
                         error: (error) => {
                             console.error('Failed to fetch user data after login', error);

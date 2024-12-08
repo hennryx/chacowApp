@@ -26,12 +26,13 @@ export class UserManagementComponent implements OnInit{
     }
 
     openEditModal(user: any) {
-
+        this.isEditModalOpen = !this.isEditModalOpen
     }
 
     getUsers() {
-        this.restApi.getWithQuery('user/all', { name: "admin" }).subscribe(response => {
+        this.restApi.getWithQuery('user/all', { role: "student" }).subscribe(response => {
             console.log(response);
-          });
+            this.users = response;
+        });
     }
 }

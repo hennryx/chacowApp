@@ -11,11 +11,12 @@ export const authGuard: CanActivateFn = (route, state) => {
     return false;
   }
 
-  const userRole: any = authService.getUserRole(); // Fetch user's role dynamically
-  const allowedRoles = route.data['roles'] as Array<string>; // Get roles from route data
+  const userRole: any = authService.getUserRole();
+  const allowedRoles = route.data['roles'] as Array<string>;
+  console.log('User Role:', userRole);
 
   if (allowedRoles && !allowedRoles.includes(userRole)) {
-    router.navigate(['/not-found']); // Redirect if the role is not allowed
+    router.navigate(['/not-found']);
     return false;
   }
 
