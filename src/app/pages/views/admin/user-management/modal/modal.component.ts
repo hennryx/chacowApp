@@ -17,7 +17,7 @@ export class ModalComponent implements OnChanges {
         firstname: '',
         middlename: '',
         lastname: '',
-        password: '',
+        role: false
     }
     @Input() isEditModalOpen: boolean = false
     @Output() _closeModal = new EventEmitter<boolean>()
@@ -28,7 +28,7 @@ export class ModalComponent implements OnChanges {
         firstname: new FormControl('', [Validators.required]),
         middlename: new FormControl(''),
         lastname: new FormControl('', [Validators.required]),
-        password: new FormControl('', [Validators.required]),
+        role: new FormControl(false),
     });
 
     ngOnChanges(changes: SimpleChanges): void {
@@ -41,8 +41,8 @@ export class ModalComponent implements OnChanges {
         this._closeModal.emit(false)
     }
 
-    handleSaveSubject(research: any) {
+    handleUpdateUser(user: any) {
         /* save here */
-        this.restApi.post("url", research)
+        this.restApi.put("user/changerole", user)
     }
 }
