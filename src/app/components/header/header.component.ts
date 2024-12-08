@@ -19,6 +19,6 @@ export class HeaderComponent {
     firstname: '',
     middlename: '',
     lastname: '',
-    suffix: '',
+    role: ''
   };
 }

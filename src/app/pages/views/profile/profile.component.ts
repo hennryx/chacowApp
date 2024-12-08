@@ -18,7 +18,7 @@ export class ProfileComponent implements OnInit{
         firstname: '',
         middlename: '',
         lastname: '',
-        suffix: ''
+        role: '',
     };
 
     constructor(private authService: AuthService, private router: Router) {}
@@ -37,4 +37,5 @@ export class ProfileComponent implements OnInit{
     logout() {
         this.router.navigate(['/'])
     }
+
 }
