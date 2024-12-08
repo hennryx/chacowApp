@@ -17,7 +17,7 @@
                 </svg>
             </div>
         </div>
-        <form (submit)="handleSaveSubject($event)" [formGroup]="researchForm">
+        <form (submit)="handleSave($event)" [formGroup]="researchForm">
             <div class="max-h-[500px] overflow-y-auto">
                 <div class="mb-4">
                     <label for="title" class="block text-sm font-medium text-gray-700">Title</label>
@@ -25,31 +25,36 @@
                         class="w-full px-4 py-2 mt-1 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" />
                 </div>
 
-                <div class="mb-4">
-                    <label for="type" class="block text-sm font-medium text-gray-700">Type</label>
-                    <input formControlName="type" type="text" placeholder="Type"
-                        class="w-full px-4 py-2 mt-1 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" />
-                </div>
+                <label class="text-sm text-gray-500">Type:
+                    <div class="relative inline-flex items-center w-full">
+                        <!-- <i class="text-blue-900 pi pi-angle-down absolute left-2 inline-block w-4 h-4"></i> -->
+                        <select formControlName="type"
+                            class="px-4 w-full py-2 pl-8 bg-white border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 apperance-none text-right">
+                            <option value="Individual" class="text-black">Individual</option>
+                            <option value="Collaborative" class="text-black">Collaborative</option>
+                        </select>
+                    </div>
+                </label>
 
                 <div class="flex flex-row gap-2">
                     <div class="mb-4">
-                        <label for="dateStarted" class="block text-sm font-medium text-gray-700">Date Started</label>
-                        <input formControlName="dateStarted" type="date" placeholder="Date Started"
+                        <label for="datestarted" class="block text-sm font-medium text-gray-700">Date Started</label>
+                        <input formControlName="datestarted" type="date" placeholder="Date Started"
                             class="w-full px-4 py-2 mt-1 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" />
                     </div>
 
                     <div class="mb-4">
-                        <label for="dateCompleted" class="block text-sm font-medium text-gray-700">Date
+                        <label for="datecompleted" class="block text-sm font-medium text-gray-700">Date
                             Completed</label>
-                        <input formControlName="dateCompleted" type="date" placeholder="Date Completed"
+                        <input formControlName="datecompleted" type="date" placeholder="Date Completed"
                             class="w-full px-4 py-2 mt-1 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" />
                     </div>
                 </div>
 
                 <div class="mb-4">
-                    <label for="publicationCompleted" class="block text-sm font-medium text-gray-700">Publication
+                    <label for="publicationdate" class="block text-sm font-medium text-gray-700">Publication
                         Date</label>
-                    <input formControlName="publicationCompleted" type="date" placeholder="Publication Completed"
+                    <input formControlName="publicationdate" type="date" placeholder="Publication Completed"
                         class="w-full px-4 py-2 mt-1 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" />
                 </div>
 
@@ -61,8 +66,8 @@
 
                 <div class="flex flex-row gap-2">
                     <div class="mb-4">
-                        <label for="volumeNumber" class="block text-sm font-medium text-gray-700">Volume Number</label>
-                        <input formControlName="volumeNumber" type="text" placeholder="Volume Number"
+                        <label for="volumenumber" class="block text-sm font-medium text-gray-700">Volume Number</label>
+                        <input formControlName="volumenumber" type="text" placeholder="Volume Number"
                             class="w-full px-4 py-2 mt-1 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" />
                     </div>
 
@@ -100,8 +105,8 @@
                 </div>
 
                 <div class="mb-4">
-                    <label for="taggedUsers" class="block text-sm font-medium text-gray-700">Tagged Users</label>
-                    <input formControlName="taggedUsers" type="text" placeholder="Tagged Users"
+                    <label for="taggeduseremail" class="block text-sm font-medium text-gray-700">Tagged Users</label>
+                    <input formControlName="taggeduseremail" type="text" placeholder="Tagged Users"
                         class="w-full px-4 py-2 mt-1 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" />
                 </div>
 
