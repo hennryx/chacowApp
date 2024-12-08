@@ -18,9 +18,7 @@ export class RestApiService {
     });
   }
 
-
   // GET request without query params, with token
-  /* get<T>(name: string, token: string): Observable<T> { */
   get<T>(name: string): Observable<T> {
     return this.http.get<T>(`${ENDPOINT}/${name}`);
   }

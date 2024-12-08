@@ -17,4 +17,12 @@ export class TableComponent {
   handleAction(action: string, id: number) {
     this.action.emit({ action, id });
   }
+
+  handleDelete(id: number) {
+
+  }
+
+  handleUpdate(item: any) {
+
+  }
 }

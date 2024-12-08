@@ -13,10 +13,10 @@ export class AuthService {
     constructor(private http: HttpClient) {}
     
     login(email: string, password: string) {
-        return this.http.post<{ accessToken: string, id: number }>(`${ENDPOINT}/auth/login`, {
+        return this.http.post<{ accessToken: string, id: number, role: string }>(`${ENDPOINT}/auth/login`, {
             email,
             password,
-        });
+        })
     }
 
     register(data: any) {
@@ -25,11 +25,13 @@ export class AuthService {
 
     logout() {
         localStorage.removeItem('authToken');
+        localStorage.removeItem('userRole');
         this.userData.next(null);
     }
 
     setUserData(data: any) {
         this.userData.next(data); 
+        localStorage.setItem('userRole', data.role);
     }
 
     getUserData() {
@@ -56,6 +58,10 @@ export class AuthService {
 
     isLoggedIn(): boolean {
         return !!this.getToken();
+    }
+
+    getUserRole(): string | null {
+        return localStorage.getItem('userRole');
     }
 
     fetchUserData() {

@@ -1,0 +1,55 @@
+<div class="bg-white rounded-lg min-w-full shadow-sm p-4 ">
+    
+    <div class="flex flex-row justify-between">
+        <h1 class="text-2xl font-semibold text-blue-600 mb-4">Research papers</h1>
+        <div class="flex gap-2 flex-row items-center">
+            <button (click)="handleFormModal()"
+                class="px-4 py-2 bg-white border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400">
+                <i class="pi pi-plus text-xs mr-2"></i>
+                Add
+            </button>
+        </div>
+    </div>
+
+    <div class="overflow-hidden bg-white rounded-lg shadow-md">
+        <table class="min-w-full table-auto">
+            <thead>
+                <tr class="text-sm leading-normal text-left text-gray-600 shadow-md uppercase bg-[#F0F4FB]">
+                    <th class="px-6 py-3">Title</th>
+                    <th class="px-6 py-3">Type</th>
+                    <th class="px-6 py-3">Started</th>
+                    <th class="px-6 py-3">Published</th>
+                    <th class="px-6 py-3">Vol</th>
+                    <th class="px-6 py-3">Status</th>
+                    <th class="px-6 py-3">Actions</th>
+                </tr>
+            </thead>
+            <tbody class="text-sm font-light text-gray-600">
+                <tr *ngFor="let research of filteredResearch" class="border-b border-gray-200 hover:bg-gray-100">
+                    <td class="px-6 py-3">{{ research.title }}</td>
+                    <td class="px-6 py-3">{{ research.type }}</td>
+                    <td class="px-6 py-3">{{ research.started }}</td>
+                    <td class="px-6 py-3">{{ research.published }}</td>
+                    <td class="px-6 py-3">{{ research.vol }}</td>
+                    <td class="px-6 py-3">{{ research.status }}</td>
+                    <td class="px-6 py-3 relative">
+                        <button class="px-4 py-2 hover:bg-gray-100 cursor-pointer" (click)="openEditModal(research)">
+                            <i class="pi pi-pencil text-blue-500"></i>
+                        </button>
+                        <button class="px-4 py-2 hover:bg-gray-100 cursor-pointer" (click)="deleteAction(research.id)">
+                            <i class="pi pi-trash text-red-500"></i>
+                        </button>
+                    </td>
+                </tr>
+
+                <tr *ngIf="filteredResearch.length === 0">
+                    <td colspan="7" class="px-6 py-3 text-center font-bold text-lg">No Items</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <AddResearch [isFormModalOpen]="isFormModalOpen" [isEditModalOpen]="isEditModalOpen"
+            (_closeModal)="handleFormModal()" [editResearch]="selectedResearch" (getTeacher)="handleGetResearch()">
+        </AddResearch>
+    </div>
+</div>

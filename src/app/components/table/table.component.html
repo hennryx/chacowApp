@@ -1,56 +1,72 @@
 <table class="min-w-full table-auto">
     <thead>
-      <tr class="text-sm leading-normal text-left text-gray-600 shadow-md uppercase bg-[#F0F4FB]">
-          <ng-container *ngFor="let head of headData">
+        <tr class="text-sm leading-normal text-left text-gray-600 shadow-md uppercase bg-[#F0F4FB]">
+            <ng-container *ngFor="let head of headData">
                 <th *ngIf="head !== 'Actions'" class="px-6 py-3">
-                    {{ head }}
+                    {{ head.toUpperCase() }}
                 </th>
             </ng-container>
             <th *ngIf="headData.includes('Actions')" colspan="2" class="text-center px-6 py-3">
                 Actions
             </th>
-      </tr>
+        </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let content of contentData" class="border-b border-gray-200 hover:bg-gray-100">
-        <ng-container *ngFor="let head of headData">
-            <td *ngIf="head !== 'Actions' && head !== 'Status'" class="px-6 py-3">
-                {{ content[head] || 'N/A' }}
-            </td>
-        </ng-container>
-        <ng-container *ngIf="content?.Status">
-            <td class="px-6 py-3 text-start items-center">
-                @if(content.Status?.success) {
+        <tr *ngFor="let content of contentData" class="border-b border-gray-200 hover:bg-gray-100">
+            <ng-container *ngFor="let head of headData">
+                <td *ngIf="head !== 'Actions' && head !== 'Status'" class="px-6 py-3">
+                    {{ content[head] || 'N/A' }}
+                </td>
+            </ng-container>
+            <ng-container *ngIf="content?.Status">
+                <td class="px-6 py-3 text-start items-center">
+                    @if(content.Status?.success) {
                     <span class="text-green-600">
                         {{ content.Status?.success }}
                     </span>
-                }
-                @if(content.Status?.danger) {
+                    }
+                    @if(content.Status?.danger) {
                     <span class="text-red-600">
                         {{ content.Status?.danger }}
                     </span>
-                }
-            </td>
-        </ng-container>
+                    }
+                </td>
 
-        <ng-container *ngIf="content.hasAction">
-          <td *ngFor="let action of content.actions" class="px-6 py-3 text-center items-center justify-center">
-            @if(action.success) {
-                <div (click)="handleAction(action.success, content.id)" class="btn text-green-600 flex gap-2 flex-row text-center items-center justify-center">
-                    <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M4 14L9 19L20 8M6 8.88889L9.07692 12L16 5" stroke="#2BA533" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
-                    <span>
-                        {{ action.success }}
-                    </span>
-                </div>
-            }
-            @if(action.danger) {
-                <div (click)="handleAction(action.danger, content.id)" class="btn text-red-600 flex gap-2 flex-row text-center items-center justify-center">
-                    <svg fill="#FF0404" height="15px" width="15px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 371.23 371.23" xml:space="preserve" stroke="#FF0404" stroke-width="31.925780000000003"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#FF0404CCCCCC" stroke-width="5.197220000000001"></g><g id="SVGRepo_iconCarrier"> <polygon points="371.23,21.213 350.018,0 185.615,164.402 21.213,0 0,21.213 164.402,185.615 0,350.018 21.213,371.23 185.615,206.828 350.018,371.23 371.23,350.018 206.828,185.615 "></polygon> </g></svg>
-                    <span>{{ action.danger }}</span>
-                </div>
-            }
-          </td>
-        </ng-container>
-      </tr>
+                <td class="px-6 py-3 text-center items-center justify-center">
+                    <div (click)="handleUpdate(content.id)"
+                        class="btn text-green-600 flex gap-2 flex-row text-center items-center justify-center">
+                        <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                            <g id="SVGRepo_iconCarrier">
+                                <path d="M4 14L9 19L20 8M6 8.88889L9.07692 12L16 5" stroke="#2BA533" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round"></path>
+                            </g>
+                        </svg>
+                        <span>
+                            Update
+                        </span>
+                    </div>
+                    <div (click)="handleDelete(content.id)"
+                        class="btn text-red-600 flex gap-2 flex-row text-center items-center justify-center">
+                        <svg fill="#FF0404" height="15px" width="15px" version="1.1" id="Layer_1"
+                            xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                            viewBox="0 0 371.23 371.23" xml:space="preserve" stroke="#FF0404"
+                            stroke-width="31.925780000000003">
+                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"
+                                stroke="#FF0404CCCCCC" stroke-width="5.197220000000001"></g>
+                            <g id="SVGRepo_iconCarrier">
+                                <polygon
+                                    points="371.23,21.213 350.018,0 185.615,164.402 21.213,0 0,21.213 164.402,185.615 0,350.018 21.213,371.23 185.615,206.828 350.018,371.23 371.23,350.018 206.828,185.615 ">
+                                </polygon>
+                            </g>
+                        </svg>
+                        <span>Delete</span>
+                    </div>
+                </td>
+            </ng-container>
+        </tr>
     </tbody>
 </table>

@@ -1,0 +1,117 @@
+<div class="fixed inset-0 z-10 flex items-center justify-center w-full h-full bg-black bg-opacity-50"
+    *ngIf="isFormModalOpen || isEditModalOpen">
+    <div class="w-full max-w-md p-6 bg-white rounded-lg shadow-lg">
+        <div class="flex justify-between items-center mb-4">
+            <h3 class="text-lg font-semibold text-gray-700">
+                {{ isEditModalOpen ? 'Edit Research' : 'New Research' }}
+            </h3>
+            <div class="cursor-pointer" (click)="closeModal()">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+                    class="w-6 h-6 text-gray-600 hover:text-gray-800">
+                    <path
+                        d="M8.00191 9.41621C7.61138 9.02569 7.61138 8.39252 8.00191 8.002C8.39243 7.61147 9.0256 7.61147 9.41612 8.002L12.0057 10.5916L14.5896 8.00771C14.9801 7.61719 15.6133 7.61719 16.0038 8.00771C16.3943 8.39824 16.3943 9.0314 16.0038 9.42193L13.4199 12.0058L16.0039 14.5897C16.3944 14.9803 16.3944 15.6134 16.0039 16.004C15.6133 16.3945 14.9802 16.3945 14.5896 16.004L12.0057 13.42L9.42192 16.0038C9.03139 16.3943 8.39823 16.3943 8.00771 16.0038C7.61718 15.6133 7.61718 14.9801 8.00771 14.5896L10.5915 12.0058L8.00191 9.41621Z"
+                        fill="#0F0F0F"></path>
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                        d="M23 4C23 2.34315 21.6569 1 20 1H4C2.34315 1 1 2.34315 1 4V20C1 21.6569 2.34315 23 4 23H20C21.6569 23 23 21.6569 23 20V4ZM21 4C21 3.44772 20.5523 3 20 3H4C3.44772 3 3 3.44772 3 4V20C3 20.5523 3.44772 21 4 21H20C20.5523 21 21 20.5523 21 20V4Z"
+                        fill="#0F0F0F"></path>
+                </svg>
+            </div>
+        </div>
+        <form (submit)="handleSaveSubject($event)" [formGroup]="documentsForm">
+            <div class="max-h-[500px] overflow-y-auto">
+                <div class="mb-4">
+                    <label for="title" class="block text-sm font-medium text-gray-700">Title</label>
+                    <input formControlName="title" type="text" placeholder="Title"
+                        class="w-full px-4 py-2 mt-1 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" />
+                </div>
+
+                <div class="mb-4">
+                    <label for="type" class="block text-sm font-medium text-gray-700">Type</label>
+                    <input formControlName="type" type="text" placeholder="Type"
+                        class="w-full px-4 py-2 mt-1 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" />
+                </div>
+
+                <div class="flex flex-row gap-2">
+                    <div class="mb-4">
+                        <label for="dateStarted" class="block text-sm font-medium text-gray-700">Date Started</label>
+                        <input formControlName="dateStarted" type="date" placeholder="Date Started"
+                            class="w-full px-4 py-2 mt-1 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" />
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="dateCompleted" class="block text-sm font-medium text-gray-700">Date
+                            Completed</label>
+                        <input formControlName="dateCompleted" type="date" placeholder="Date Completed"
+                            class="w-full px-4 py-2 mt-1 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" />
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <label for="publicationCompleted" class="block text-sm font-medium text-gray-700">Publication
+                        Date</label>
+                    <input formControlName="publicationCompleted" type="date" placeholder="Publication Completed"
+                        class="w-full px-4 py-2 mt-1 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" />
+                </div>
+
+                <div class="mb-4">
+                    <label for="journal" class="block text-sm font-medium text-gray-700">Journal</label>
+                    <input formControlName="journal" type="text" placeholder="Journal"
+                        class="w-full px-4 py-2 mt-1 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" />
+                </div>
+
+                <div class="flex flex-row gap-2">
+                    <div class="mb-4">
+                        <label for="volumeNumber" class="block text-sm font-medium text-gray-700">Volume Number</label>
+                        <input formControlName="volumeNumber" type="text" placeholder="Volume Number"
+                            class="w-full px-4 py-2 mt-1 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" />
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="issue" class="block text-sm font-medium text-gray-700">Issue</label>
+                        <input formControlName="issue" type="text" placeholder="Issue"
+                            class="w-full px-4 py-2 mt-1 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" />
+                    </div>
+                </div>
+
+                <div class="flex flex-row gap-2">
+                    <div class="mb-4">
+                        <label for="issn" class="block text-sm font-medium text-gray-700">ISSN</label>
+                        <input formControlName="issn" type="text" placeholder="ISSN"
+                            class="w-full px-4 py-2 mt-1 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" />
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="doi" class="block text-sm font-medium text-gray-700">DOI</label>
+                        <input formControlName="doi" type="text" placeholder="DOI"
+                            class="w-full px-4 py-2 mt-1 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" />
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <label for="url" class="block text-sm font-medium text-gray-700">URL</label>
+                    <input formControlName="url" type="url" placeholder="URL"
+                        class="w-full px-4 py-2 mt-1 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" />
+                </div>
+
+                <div class="mb-4">
+                    <label for="keywords" class="block text-sm font-medium text-gray-700">Keywords</label>
+                    <input formControlName="keywords" type="text" placeholder="Keywords"
+                        class="w-full px-4 py-2 mt-1 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" />
+                </div>
+
+                <div class="mb-4">
+                    <label for="taggedUsers" class="block text-sm font-medium text-gray-700">Tagged Users</label>
+                    <input formControlName="taggedUsers" type="text" placeholder="Tagged Users"
+                        class="w-full px-4 py-2 mt-1 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" />
+                </div>
+
+
+                <div class="flex justify-end my-4">
+                    <button type="submit" class="px-4 py-2 text-white bg-[#012970] rounded-lg hover:bg-blue-700">
+                        {{ isEditModalOpen ? 'Update Research' : 'Save Research' }}
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
