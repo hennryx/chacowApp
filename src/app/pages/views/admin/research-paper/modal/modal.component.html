@@ -3,7 +3,7 @@
     <div class="w-full max-w-md p-6 bg-white rounded-lg shadow-lg">
         <div class="flex justify-between items-center mb-4">
             <h3 class="text-lg font-semibold text-gray-700">
-                {{ isEditModalOpen ? 'Edit Research' : 'New Research' }}
+                {{ editResearch != null ? 'Edit Research' : 'New Research' }}
             </h3>
             <div class="cursor-pointer" (click)="closeModal()">
                 <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
@@ -22,25 +22,43 @@
                 <div class="mb-4">
                     <label for="title" class="block text-sm font-medium text-gray-700">Title</label>
                     <input formControlName="title" type="text" placeholder="Title"
-                        class="w-full px-4 py-2 mt-1 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" />
+                        class="w-full px-4 py-2 mt-1 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                        required />
+                    @if (isFieldInvalid('title')) {
+                    <div class="text-red-500 text-sm mt-1">
+                        Title is required
+                    </div>
+                    }
                 </div>
 
-                <label class="text-sm text-gray-500">Type:
+                <div class="text-sm text-gray-500">
+                    <label for="">Type:</label>
                     <div class="relative inline-flex items-center w-full">
-                        <!-- <i class="text-blue-900 pi pi-angle-down absolute left-2 inline-block w-4 h-4"></i> -->
                         <select formControlName="type"
-                            class="px-4 w-full py-2 pl-8 bg-white border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 apperance-none text-right">
+                            class="px-4 w-full py-2 pl-8 bg-white border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 apperance-none text-right"
+                            required>
                             <option value="Individual" class="text-black">Individual</option>
                             <option value="Collaborative" class="text-black">Collaborative</option>
                         </select>
                     </div>
-                </label>
+                    @if (isFieldInvalid('type')) {
+                    <div class="text-red-500 text-sm mt-1">
+                        Type is required
+                    </div>
+                    }
+                </div>
 
                 <div class="flex flex-row gap-2">
                     <div class="mb-4">
                         <label for="datestarted" class="block text-sm font-medium text-gray-700">Date Started</label>
                         <input formControlName="datestarted" type="date" placeholder="Date Started"
-                            class="w-full px-4 py-2 mt-1 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" />
+                            class="w-full px-4 py-2 mt-1 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                            required />
+                        @if (isFieldInvalid('datestarted')) {
+                        <div class="text-red-500 text-sm mt-1">
+                            Date started is required
+                        </div>
+                        }
                     </div>
 
                     <div class="mb-4">
@@ -48,6 +66,11 @@
                             Completed</label>
                         <input formControlName="datecompleted" type="date" placeholder="Date Completed"
                             class="w-full px-4 py-2 mt-1 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" />
+                        @if (isFieldInvalid('datecompleted')) {
+                        <div class="text-red-500 text-sm mt-1">
+                            Date completed is required
+                        </div>
+                        }
                     </div>
                 </div>
 
@@ -68,7 +91,13 @@
                     <div class="mb-4">
                         <label for="volumenumber" class="block text-sm font-medium text-gray-700">Volume Number</label>
                         <input formControlName="volumenumber" type="text" placeholder="Volume Number"
-                            class="w-full px-4 py-2 mt-1 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" />
+                            class="w-full px-4 py-2 mt-1 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                            required />
+                        @if (isFieldInvalid('volumenumber')) {
+                        <div class="text-red-500 text-sm mt-1">
+                            Volumen number is required
+                        </div>
+                        }
                     </div>
 
                     <div class="mb-4">
@@ -102,6 +131,11 @@
                     <label for="keywords" class="block text-sm font-medium text-gray-700">Keywords</label>
                     <input formControlName="keywords" type="text" placeholder="Keywords"
                         class="w-full px-4 py-2 mt-1 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" />
+                    @if (isFieldInvalid('keywords')) {
+                    <div class="text-red-500 text-sm mt-1">
+                        Date completed is required
+                    </div>
+                    }
                 </div>
 
                 <div class="mb-4">
@@ -110,10 +144,11 @@
                         class="w-full px-4 py-2 mt-1 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" />
                 </div>
 
-
                 <div class="flex justify-end my-4">
-                    <button type="submit" class="px-4 py-2 text-white bg-[#012970] rounded-lg hover:bg-blue-700">
-                        {{ isEditModalOpen ? 'Update Research' : 'Save Research' }}
+                    <button type="submit" class="px-4 py-2 text-white bg-[#012970] rounded-lg hover:bg-blue-700
+                    disabled:opacity-50 
+           disabled:pointer-events-none" [disabled]="!researchForm.valid">
+                        {{ editResearch != null ? 'Update Research' : 'Save Research' }}
                     </button>
                 </div>
             </div>

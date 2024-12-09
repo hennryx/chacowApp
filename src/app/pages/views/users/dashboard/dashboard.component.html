@@ -4,33 +4,52 @@
 
         <!-- Search Bar -->
         <div class="mb-6 flex">
-            <input type="text" [(ngModel)]="searchQuery" (input)="searchDocuments()"
-                placeholder="Search documents by title, description, or type"
+            <input type="text" [(ngModel)]="searchQuery" (input)="searchpaper()" placeholder="Search title or keywords"
                 class="w-full px-4 py-3 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-            <button (click)="searchDocuments()"
+            <button (click)="searchpaper()"
                 class="bg-blue-500 text-white px-6 py-3 rounded-r-lg hover:bg-blue-600 transition duration-300">
                 Search
             </button>
+            <button (click)="searchpaper()"
+                class="bg-blue-500 text-white px-6 py-3 rounded-r-lg hover:bg-blue-600 transition duration-300">
+                FILTER
+            </button>
         </div>
 
-        <!-- Document Results -->
-        <div *ngIf="filteredDocuments.length > 0" class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <div *ngFor="let doc of filteredDocuments"
-                class="bg-white shadow-md rounded-lg p-6 hover:shadow-lg transition duration-300" >
-                <div (click)="openDocument(doc.urlRef)">
-                    <h2 class="text-xl font-semibold mb-2 text-gray-800">{{ doc.materialtitle }}</h2>
-                    <p class="text-gray-600 mb-4">{{ doc.description }}</p>
-                    <div class="flex justify-between text-sm text-gray-500">
-                        <span class="bg-blue-100 px-2 py-1 rounded">{{ doc.type }}</span>
-                        <span>{{ doc.dateadded }}</span>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <table class="min-w-full table-auto bg-white">
+            <thead>
+                <tr class="text-sm leading-normal text-left text-gray-600 shadow-md uppercase bg-[#F0F4FB]">
+                    <th class="px-6 py-3">Title</th>
+                    <th class="px-6 py-3">Type</th>
+                    <th class="px-6 py-3">Started</th>
+                    <th class="px-6 py-3">Completed</th>
+                    <th class="px-6 py-3">Published</th>
+                    <th class="px-6 py-3">Vol</th>
+                    <th class="px-6 py-3">Keywords</th>
+                    <th class="px-6 py-3">Status</th>
+                </tr>
+            </thead>
+            <tbody class="text-sm font-light text-gray-600">
+                <tr *ngFor="let research of filteredpapers" class="border-b border-gray-200 hover:bg-gray-100">
+                    <td class="px-6 py-3">{{ research.title }}</td>
+                    <td class="px-6 py-3">{{ research.type }}</td>
+                    <td class="px-6 py-3">{{ research.datestarted }}</td>
+                    <td class="px-6 py-3">{{ research.datecompleted }}</td>
+                    <td class="px-6 py-3">{{ research.publicationdate || "Not published" }}</td>
+                    <td class="px-6 py-3">{{ research.volumenumber }}</td>
+                    <td class="px-6 py-3">{{ research.keywords }}</td>
+                    <td class="px-6 py-3">{{ research.status }}</td>
+                </tr>
+
+                <tr *ngIf="filteredpapers.length === 0">
+                    <td colspan="7" class="px-6 py-3 text-center font-bold text-lg">No Items</td>
+                </tr>
+            </tbody>
+        </table>
 
         <!-- No Results Message -->
-        <div *ngIf="filteredDocuments.length === 0" class="text-center text-gray-500 mt-10">
+        <!-- <div *ngIf="filteredDocuments.length === 0" class="text-center text-gray-500 mt-10">
             <p class="text-xl">No documents found matching your search.</p>
-        </div>
+        </div> -->
     </div>
 </div>

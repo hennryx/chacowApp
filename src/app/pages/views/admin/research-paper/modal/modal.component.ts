@@ -48,28 +48,29 @@ export class ModalComponent implements OnChanges {
   @Output() _closeModal = new EventEmitter<boolean>();
   @Output() getResearch = new EventEmitter<void>();
 
-  constructor(private restApi: RestApiService, private messageService: MessageService) {}
+  constructor(
+    private restApi: RestApiService,
+    private messageService: MessageService
+  ) {}
 
   researchForm = new FormGroup({
     title: new FormControl('', [Validators.required]),
     type: new FormControl('', [Validators.required]),
     datestarted: new FormControl('', [Validators.required]),
-    datecompleted: new FormControl(''),
+    datecompleted: new FormControl('', [Validators.required]),
     publicationdate: new FormControl(''),
-    journal: new FormControl('', [Validators.required]),
+    journal: new FormControl(''),
     volumenumber: new FormControl('', [Validators.required]),
-    issue: new FormControl('', [Validators.required]),
-    issn: new FormControl('', [Validators.required]),
-    doi: new FormControl('', [Validators.required]),
-    url: new FormControl('', [Validators.required]),
+    issue: new FormControl(''),
+    issn: new FormControl(''),
+    doi: new FormControl(''),
+    url: new FormControl(''),
     keywords: new FormControl('', [Validators.required]),
     taggeduseremail: new FormControl(''),
   });
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(this.editResearch);
-
-    if (this.isEditModalOpen) {
+    if (this.isFormModalOpen && this.editResearch != null) {
       this.researchForm.patchValue({
         title: this.editResearch.title,
         type: this.editResearch.type,
@@ -83,47 +84,91 @@ export class ModalComponent implements OnChanges {
         doi: this.editResearch.doi,
         url: this.editResearch.url,
         keywords: this.editResearch.keywords,
-        taggeduseremail: this.editResearch.taggeduser
-          .map((x: any) => x.useremail)
-          .join(', '),
+        taggeduseremail: this.editResearch.taggeduser,
       });
     }
   }
 
   closeModal() {
     this._closeModal.emit(false);
-    this.researchForm.reset()
+    this.researchForm.reset();
+  }
+
+  updatePaper() {
+    let papers = JSON.parse(localStorage.getItem('papers') || '[]');
+
+    const updateobject = {
+      id: this.editResearch.id,
+      status: this.researchForm.value.datecompleted
+        ? 'Completed'
+        : this.researchForm.value.publicationdate
+        ? 'Published'
+        : 'Unpublished',
+      ...this.researchForm.value,
+    };
+
+    // filter the object, and remove the old data
+    papers = papers.filter((x: any) => x.id != this.editResearch.id);
+    papers.push(updateobject);
+
+    let stringpapers = JSON.stringify(papers);
+
+    localStorage.setItem('papers', stringpapers);
+
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Success',
+      detail: 'Research Successfully Updated!',
+    });
+  }
+
+  createPaper() {
+    let papers = JSON.parse(sessionStorage.getItem('papers') || '[]');
+
+    const currentid = papers.length == 0 ? 1 : papers[papers.length - 1].id + 1;
+
+    papers.push({
+      id: currentid,
+      status: this.researchForm.value.datecompleted
+        ? 'Completed'
+        : this.researchForm.value.publicationdate
+        ? 'Published'
+        : 'Unpublished',
+      ...this.researchForm.value,
+    });
+
+    let stringpapers = JSON.stringify(papers);
+    sessionStorage.setItem('papers', stringpapers);
+
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Success',
+      detail: 'Research Successfully Added!',
+    });
   }
 
   handleSave(research: any) {
-    const endpoint =
-      'http://localhost:3000/api/v1/paper/' +
-      (this.editResearch?.id ? 'update' : 'add');
+    if (this.researchForm.errors) {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Internal server error!',
+      });
+      return;
+    }
 
-    let data = this.researchForm.value;
+    if (this.editResearch) {
+      // update data
+      this.updatePaper();
+      return;
+    }
 
-    fetch(endpoint, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        ...data,
-        id: this.editResearch?.id ? this.editResearch?.id : undefined,
-      }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data)
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Research Successfully Added' });
-        this.researchForm.reset()
-        this.closeModal();
-    })
-      .catch((err) => {
-        console.error(err)
-        this.messageService.add({ severity: 'error', summary: err.message, detail: 'Message Content' });
-    });
+    // create new record
+    this.createPaper();
+  }
 
-    // this.restApi.post('api/v1/paper/add', data);
+  isFieldInvalid(fieldName: string): boolean {
+    const control = this.researchForm.get(fieldName);
+    return (control?.invalid && control?.touched) || false;
   }
 }

@@ -14,9 +14,10 @@
             <thead>
                 <tr class="text-sm leading-normal text-left text-gray-600 shadow-md uppercase bg-[#F0F4FB]">
                     <th class="px-6 py-3">id</th>
-                    <th class="px-6 py-3">title</th>
+                    <th class="px-6 py-3">Title</th>
+                    <th class="px-6 py-3">Type</th>
                     <th class="px-6 py-3">Description</th>
-                    <th class="px-6 py-3">Url Ref</th>
+                    <th class="px-6 py-3">File</th>
                     <th class="px-6 py-3">Actions</th>
                 </tr>
             </thead>
@@ -24,15 +25,21 @@
                 <tr *ngFor="let material of filteredMaterials" class="border-b border-gray-200 hover:bg-gray-100">
                     <td class="px-6 py-3">{{ material.id }}</td>
                     <td class="px-6 py-3">{{ material.materialtitle }}</td>
+                    <td class="px-6 py-3">{{ material.type }}</td>
                     <td class="px-6 py-3">{{ material.description }}</td>
-                    <td class="px-6 py-3">{{ material.urlref }}</td>
+                    <td class="px-6 py-3">
+                        <a href="{{material.file}}">
+                            Download
+                        </a>
+                    </td>
                     <td class="px-6 py-3 flex flex-row">
-                       <!--  <button class="px-4 py-2 hover:bg-gray-100 cursor-pointer" (click)="openEditModal(material)">
+                        <button class="px-4 py-2 hover:bg-gray-100 cursor-pointer" (click)="openEditModal(material)">
                             <i class="pi pi-pencil text-blue-500"></i>
-                        </button> -->
+                        </button>
                         <p-confirmDialog />
                         <div class="px-4 py-2 hover:bg-gray-100 text-red-600 cursor-pointer">
-                            <p-button (onClick)="confirm2($event, material.id)" icon="pi pi-trash" severity="danger" [outlined]="true" />
+                            <p-button (onClick)="confirm2($event, material.id)" icon="pi pi-trash" severity="danger"
+                                [outlined]="true" />
                         </div>
                     </td>
                 </tr>
@@ -44,6 +51,7 @@
         </table>
 
         <AddDocuments [isFormModalOpen]="isFormModalOpen" [isEditModalOpen]="isEditModalOpen"
-        (_closeModal)="handleCloseModal()" [editDocuments]="selectedDocument" (getTeacher)="handleGetDocuments()"></AddDocuments>
+            (_closeModal)="handleCloseModal()" [editDocuments]="selectedDocument" (getTeacher)="handleGetDocuments()">
+        </AddDocuments>
     </div>
 </div>
