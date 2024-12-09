@@ -11,10 +11,17 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 @Component({
   selector: 'app-research-paper',
   standalone: true,
-  imports: [CommonModule, FormsModule, ModalComponent, ButtonModule, ToastModule, ConfirmDialogModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    ModalComponent,
+    ButtonModule,
+    ToastModule,
+    ConfirmDialogModule,
+  ],
   templateUrl: './research-paper.component.html',
   styleUrl: './research-paper.component.css',
-  providers: [ConfirmationService]
+  providers: [ConfirmationService],
 })
 export class ResearchPaperComponent implements OnInit {
   filteredResearch: any = [];
@@ -22,13 +29,17 @@ export class ResearchPaperComponent implements OnInit {
   isEditModalOpen: boolean = false;
   isFormModalOpen: boolean = false;
 
-  constructor(private restApi: RestApiService, private messageService: MessageService, private confirmationService: ConfirmationService) { }
+  constructor(
+    private restApi: RestApiService,
+    private messageService: MessageService,
+    private confirmationService: ConfirmationService
+  ) {}
   ngOnInit(): void {
     this.handleGetResearch();
   }
 
   openEditModal(research: any) {
-    this.isEditModalOpen = true;
+    this.isFormModalOpen = true;
     this.selectedResearch = research;
   }
 
@@ -38,32 +49,32 @@ export class ResearchPaperComponent implements OnInit {
       message: 'Do you want to delete this record?',
       header: 'Delete Confirmation',
       icon: 'pi pi-info-circle',
-      acceptButtonStyleClass: "p-button-danger p-button-text",
-      rejectButtonStyleClass: "p-button-text p-button-text",
-      acceptIcon: "none",
-      rejectIcon: "none",
+      acceptButtonStyleClass: 'p-button-danger p-button-text',
+      rejectButtonStyleClass: 'p-button-text p-button-text',
+      acceptIcon: 'none',
+      rejectIcon: 'none',
 
       accept: () => {
-        fetch(`http://localhost:3000/api/v1/paper/delete/${id}`, {
-          method: 'delete',
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            console.log(data)
-            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Research deleted Successfully' });
-            this.handleGetResearch();
-          })
-          .catch((err) => {
-            console.error(err)
-            this.messageService.add({ severity: 'error', summary: err.message, detail: 'Message Content' });
-          });
+        let papers = JSON.parse(sessionStorage.getItem('papers') || '[]');
+        papers = papers.filter((x: any) => x.id != id);
+        sessionStorage.setItem('papers', JSON.stringify(papers));
+        this.handleGetResearch();
+
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Research deleted Successfully',
+        });
       },
       reject: () => {
-        this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected' });
-      }
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Rejected',
+          detail: 'You have rejected',
+        });
+      },
     });
   }
-
 
   handleFormModal() {
     this.isFormModalOpen = !this.isFormModalOpen;
@@ -76,14 +87,10 @@ export class ResearchPaperComponent implements OnInit {
   }
 
   handleGetResearch() {
-    this.restApi.get('paper/all').subscribe({
-      next: (response) => {
-        this.filteredResearch = response;
-        console.log(response);
-      },
-      error: (err) => {
-        console.error('get Research failed:', err);
-      },
-    });
+    const datastring = sessionStorage.getItem('papers');
+
+    if (datastring) {
+      this.filteredResearch = JSON.parse(datastring);
+    }
   }
 }
