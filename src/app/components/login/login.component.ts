@@ -45,35 +45,16 @@ export class LoginComponent {
             console.log('Login details');
             console.table(this.loginForm.value);
 
-            const { email, password, rememberMe } = this.loginForm.value;
-            this.authService.login(email!, password!).subscribe({
-                next: (response: any) => {
-                    console.log(response);
-                    this.authService.saveToken(response.accessToken);
-                    this.authService.setUserId(response.id);
+            const { email, password } = this.loginForm.value;
+            const userData: any = this.authService.login(email!, password!);
 
-                    this.authService.fetchUserData()?.subscribe({
-                        next: (userData: UserData) => {
-                            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Successfully login' });
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Successfully login' });
                             
-                            let access = accessRoutes[userData.role];
-                            this.authService.setUserData(userData);
-                            this.router.navigate([access[0].path]);
-                        },
-                        error: (error) => {
-                            console.error('Failed to fetch user data after login', error);
-                        }
-                    });
-                },
-                error: (err: any) => {
-                    console.log(err);
-                    this.errorMsg = err.error.message;
-
-                    setTimeout(() => {
-                        this.errorMsg = '';
-                    }, 3000);
-                }
-            });
+            let access = accessRoutes[userData?.role];
+            this.authService.setUserData(userData);
+            console.log(access[0].path);
+            
+            this.router.navigate([access[0].path]);
         } else {
             console.error('Form is invalid');
         }

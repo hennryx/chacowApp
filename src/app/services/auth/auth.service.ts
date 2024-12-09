@@ -14,10 +14,28 @@ export class AuthService {
     constructor(private http: HttpClient) {}
     
     login(email: string, password: string) {
-        return this.http.post<{ accessToken: string, id: number, role: string }>(`${ENDPOINT}/auth/login`, {
-            email,
-            password,
-        })
+
+        if (email === "admin@gmail.com" && password === "password") {
+            return {
+                email: "admin@gmail.com",
+                password: "password",
+                firstname: "Charisse",
+                middlename: "",
+                lastname: "Busalpa",
+                role: "admin",
+            };
+        } else if(email === "student@gmail.com" && password === "password") {
+            return {
+                email: "student@gmail.com",
+                password: "password",
+                firstname: "cha",
+                middlename: "",
+                lastname: "Busalpa",
+                role: "student",
+            };
+        }else {
+            return null;
+        }
     }
 
     register(data: any) {
