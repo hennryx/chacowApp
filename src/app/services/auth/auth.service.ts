@@ -24,17 +24,15 @@ export class AuthService {
                 lastname: "Busalpa",
                 role: "admin",
             };
-        } else if(email === "student@gmail.com" && password === "password") {
-            return {
-                email: "student@gmail.com",
-                password: "password",
-                firstname: "cha",
-                middlename: "",
-                lastname: "Busalpa",
-                role: "student",
-            };
-        }else {
-            return null;
+        } else {
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            const user = users.find((user: { email: string; password: string }) => user.email === email);
+
+            if (user) {
+                return user;  
+            } else {
+                return null;
+            }
         }
     }
 

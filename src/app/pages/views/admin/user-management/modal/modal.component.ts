@@ -1,8 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RestApiService } from '../../../../../services/api/rest-api.service';
-import { MessageService } from 'primeng/api';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -19,20 +17,19 @@ export class ModalComponent implements OnChanges {
     @Input() isEditMode: boolean = false
     @Output() _closeModal = new EventEmitter<boolean>()
 
-    constructor(private messageService: MessageService) { }
+    constructor() { }
 
     userForm = new FormGroup({
         id: new FormControl(0),
         firstname: new FormControl('', [Validators.required]),
         middlename: new FormControl(''),
         lastname: new FormControl('', [Validators.required]),
-        email: new FormControl('')
+        email: new FormControl('', [Validators.required]),
+        role: new FormControl('')
     });
 
     ngOnChanges(changes: SimpleChanges): void {
         if (Object.keys(this.editUser).length > 0 && this.isEditMode) {
-            console.log(this.editUser);
-            
             this.userForm.patchValue(this.editUser)
         }
     }
@@ -44,19 +41,32 @@ export class ModalComponent implements OnChanges {
 
     handleAddUser(event: Event) {
         event.preventDefault();
-    
+
+        if(!this.userForm.valid) return
+
         let data = this.userForm.value;
-        
+        data.role = 'student';
+
         const storedUserData = localStorage.getItem('users');
         let oldData = storedUserData ? JSON.parse(storedUserData) : [];
-        
+
         console.log(this.editUser.id);
-        
+        const existingUser = oldData.find((item: any) => item.email === data.email);
+
+        if (existingUser) {
+            Swal.fire({
+                title: "Error!",
+                text: "User with this email already exists.",
+                icon: "error"
+            });
+            return;
+        }
+
         if (this.editUser.id !== 0 && this.isEditMode) {
             let updatedData = oldData.map((item: any) =>
                 item.id === this.editUser.id ? { ...item, ...data } : item
             );
-            
+
             localStorage.setItem('users', JSON.stringify(updatedData));
             Swal.fire({
                 title: "Updated!",
@@ -74,8 +84,10 @@ export class ModalComponent implements OnChanges {
                 icon: "success"
             });
         }
-        
+
         this.closeModal();
+        this.userForm.reset();
+        this.editUser = {}
     }
-    
+
 }

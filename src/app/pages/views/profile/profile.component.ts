@@ -24,17 +24,13 @@ export class ProfileComponent implements OnInit{
     constructor(private authService: AuthService, private router: Router) {}
 
     ngOnInit(): void {
-        this.authService.getUserData().subscribe({
-            next: (data) => {
-                this.userData = data;
-                console.log(this.userData);
-                
-            },
-            error: (error) => console.error("Failed to load user data", error)
-          });
+        const data = localStorage.getItem('userData')
+        this.userData = data ? JSON.parse(data) : null
     }
 
     logout() {
+        localStorage.removeItem('userData')
+        localStorage.removeItem('userRole')
         this.router.navigate(['/'])
     }
 
