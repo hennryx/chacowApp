@@ -3,13 +3,13 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-dashboard',
+  selector: 'heroPage',
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css',
 })
-export class DashboardComponent implements OnInit {
+export class heroPageComponent implements OnInit {
   searchQuery: string = '';
   selectedStatus: string = 'All';
   selectedType: string = 'All';

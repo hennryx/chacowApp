@@ -10,11 +10,33 @@
                 class="bg-blue-500 text-white px-6 py-3 rounded-r-lg hover:bg-blue-600 transition duration-300">
                 Search
             </button>
-            <button (click)="searchpaper()"
-                class="bg-blue-500 text-white px-6 py-3 rounded-r-lg hover:bg-blue-600 transition duration-300">
-                FILTER
-            </button>
         </div>
+        <div class="flex gap-2">
+            <label class="text-sm text-gray-500">Status:
+                <div class="relative inline-flex items-center w-full">
+                    <i class="text-blue-900 pi pi-angle-down absolute left-2 inline-block w-4 h-4"></i>
+                    <select [(ngModel)]="selectedStatus" (change)="searchpaper()"
+                        class="px-4 w-full py-2 pl-8 bg-white border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 appearance-none text-right">
+                        <option value="All" class="text-black">All</option>
+                        <option value="Completed" class="text-black">Completed</option>
+                        <option value="Published" class="text-black">Published</option>
+                    </select>
+                </div>
+            </label>
+        
+            <label class="text-sm text-gray-500">Type:
+                <div class="relative inline-flex items-center w-full">
+                    <i class="text-blue-900 pi pi-angle-down absolute left-2 inline-block w-4 h-4"></i>
+                    <select [(ngModel)]="selectedType" (change)="searchpaper()"
+                        class="px-4 w-full py-2 pl-8 bg-white border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 appearance-none text-right">
+                        <option value="All" class="text-black">All</option>
+                        <option value="Individual" class="text-black">Individual</option>
+                        <option value="Collaborative" class="text-black">Collaborative</option>
+                    </select>
+                </div>
+            </label>
+        </div>
+        
 
         <table class="min-w-full table-auto bg-white">
             <thead>

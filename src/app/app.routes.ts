@@ -9,12 +9,20 @@ import { ResearchPaperComponent } from './pages/views/admin/research-paper/resea
 import { MaterialsDocumentsComponent } from './pages/views/admin/materials-documents/materials-documents.component';
 import { UserManagementComponent } from './pages/views/admin/user-management/user-management.component';
 import { DashboardComponent } from './pages/views/users/dashboard/dashboard.component';
+import { heroPageComponent } from './pages/dashboard/dashboard.component';
 
 export const routes: Routes = [
     {
         path: '',
         component: PublicLayoutComponent,
-        data: { title: 'Atete' },
+        data: { title: 'RET AIMS' },
+        children: [
+            { path: '', component: heroPageComponent, pathMatch: 'full' },
+        ]
+    },
+    {
+        path: 'login',
+        component: PublicLayoutComponent,
         children: [
             { path: '', component: HomeComponent, pathMatch: 'full' },
         ]

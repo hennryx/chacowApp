@@ -1,24 +1,23 @@
 <div class="flex flex-col sm:flex-row home-background justify-center relative">
     <div class=" w-full h-full absolute ">
-        <img src="assets/school.jpeg" alt="logo1" class="hidden sm:block w-full h-full object-cover" >
-        <!-- <img src="assets/center.png" alt="logo2" class="center-img hidden sm:block"> -->
+        <img src="assets/school.jpeg" alt="logo1" class="hidden sm:block w-full h-full object-cover">
     </div>
     <div class="w-[40%] h-full pt-[24rem] z-10 hidden sm:block">
         <div class="flex flex-col">
             <h1 class="flex flex-col self-start ">
                 <span class="text-white text-6xl font-bold">
-                    Cha
+                    Research Extension Unit
+                    Archiving Information Management System
                 </span>
             </h1>
-            <p class="text-blue-700">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt deleniti, at ipsa iste dolores qui suscipit perspiciatis aperiam tempora iure eum ea et, doloribus maxime quis vero, consequatur commodi eos.</p>
         </div>
     </div>
     <div class="h-[90%] sm:h-[75%] max-w-lg sm:w-[40%] z-10 flex flex-wrap box-border">
         @if(!show) {
-            <Register (_showLogin)="showView($event)" />
+        <Register (_showLogin)="showView($event)" />
         }
         @else {
-            <Login (_showRegister)="showView($event)" class="w-full" />
+        <Login (_showRegister)="showView($event)" class="w-full" />
         }
     </div>
 </div>

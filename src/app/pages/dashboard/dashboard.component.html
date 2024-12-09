@@ -1,0 +1,79 @@
+<div class="min-h-screen bg-gray-100 relative z-0">
+    <div class=" w-full h-full absolute ">
+        <img src="assets/school.jpeg" alt="logo1" class="hidden sm:block w-full h-full object-cover" >
+    </div>
+
+    <div class="h-screen flex flex-col justify-center items-center">
+        <div class="max-w-4xl mx-auto z-10 relative">
+            <h1 class="text-5xl font-bold text-center mb-8 text-gray-800"><span class="text-blue-700 text-5xl">Research</span> Archive</h1>
+    
+            <!-- Search Bar -->
+            <div class="mb-2 flex">
+                <input type="text" [(ngModel)]="searchQuery" (input)="searchpaper()" placeholder="Search title or keywords"
+                    class="w-full px-4 py-3 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <button (click)="searchpaper()"
+                    class="bg-blue-500 text-white px-6 py-3 rounded-r-lg hover:bg-blue-600 transition duration-300">
+                    Search
+                </button>
+            </div>
+
+            <div class="flex gap-2 mb-2">
+                <label class="text-sm text-gray-500">Status:
+                    <div class="relative inline-flex items-center w-full">
+                        <i class="text-blue-900 pi pi-angle-down absolute left-2 inline-block w-4 h-4"></i>
+                        <select [(ngModel)]="selectedStatus" (change)="searchpaper()"
+                            class="px-4 w-full py-2 pl-8 bg-white border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 appearance-none text-right">
+                            <option value="All" class="text-black">All</option>
+                            <option value="Completed" class="text-black">Completed</option>
+                            <option value="Published" class="text-black">Published</option>
+                        </select>
+                    </div>
+                </label>
+            
+                <label class="text-sm text-gray-500">Type:
+                    <div class="relative inline-flex items-center w-full">
+                        <i class="text-blue-900 pi pi-angle-down absolute left-2 inline-block w-4 h-4"></i>
+                        <select [(ngModel)]="selectedType" (change)="searchpaper()"
+                            class="px-4 w-full py-2 pl-8 bg-white border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 appearance-none text-right">
+                            <option value="All" class="text-black">All</option>
+                            <option value="Individual" class="text-black">Individual</option>
+                            <option value="Collaborative" class="text-black">Collaborative</option>
+                        </select>
+                    </div>
+                </label>
+            </div>
+            
+    
+            <table class="min-w-full table-auto bg-white">
+                <thead>
+                    <tr class="text-sm leading-normal text-left text-gray-600 shadow-md uppercase bg-[#F0F4FB]">
+                        <th class="px-6 py-3">Title</th>
+                        <th class="px-6 py-3">Type</th>
+                        <th class="px-6 py-3">Started</th>
+                        <th class="px-6 py-3">Completed</th>
+                        <th class="px-6 py-3">Published</th>
+                        <th class="px-6 py-3">Vol</th>
+                        <th class="px-6 py-3">Keywords</th>
+                        <th class="px-6 py-3">Status</th>
+                    </tr>
+                </thead>
+                <tbody class="text-sm font-light text-gray-600">
+                    <tr *ngFor="let research of filteredpapers" class="border-b border-gray-200 hover:bg-gray-100">
+                        <td class="px-6 py-3">{{ research.title }}</td>
+                        <td class="px-6 py-3">{{ research.type }}</td>
+                        <td class="px-6 py-3">{{ research.datestarted }}</td>
+                        <td class="px-6 py-3">{{ research.datecompleted }}</td>
+                        <td class="px-6 py-3">{{ research.publicationdate || "Not published" }}</td>
+                        <td class="px-6 py-3">{{ research.volumenumber }}</td>
+                        <td class="px-6 py-3">{{ research.keywords }}</td>
+                        <td class="px-6 py-3">{{ research.status }}</td>
+                    </tr>
+    
+                    <tr *ngIf="filteredpapers.length === 0">
+                        <td colspan="7" class="px-6 py-3 text-center font-bold text-lg">No Items</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
