@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RestApiService } from '../../../../../services/api/rest-api.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
     selector: 'AddDocuments',
@@ -24,11 +25,11 @@ export class ModalComponent implements OnChanges {
     @Output() _closeModal = new EventEmitter<boolean>()
     @Output() getDocuments = new EventEmitter<void>()
 
-    constructor(private restApi: RestApiService) {}
+    constructor(private restApi: RestApiService, private messageService: MessageService) {}
 
     documentsForm = new FormGroup({
         materialtitle: new FormControl('', [Validators.required]),
-        type: new FormControl('', [Validators.required]),
+       /*  type: new FormControl('', [Validators.required]), */
         description: new FormControl('', [Validators.required]),
         file: new FormControl('', [Validators.required]),
     });
@@ -37,7 +38,7 @@ export class ModalComponent implements OnChanges {
         if (this.isEditModalOpen) {
             this.documentsForm.patchValue({
                 materialtitle: this.editDocuments.materialtitle,
-                type: this.editDocuments.type,
+                /* type: this.editDocuments.type, */
                 description: this.editDocuments.description,
                 file: this.editDocuments.file,
             })
@@ -49,7 +50,32 @@ export class ModalComponent implements OnChanges {
     }
 
     handleSaveSubject(documents: any) {
-        /* save here */
-        this.restApi.post("url", documents)
+        const endpoint =
+      'http://localhost:3000/api/v1/material/' +
+      (this.editDocuments?.id ? 'update' : 'add');
+
+    let data = this.documentsForm.value;
+
+    fetch(endpoint, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        ...data,
+        id: this.editDocuments?.id ? this.editDocuments?.id : undefined,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data)
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Research Successfully Added' });
+        this.documentsForm.reset()
+        this.closeModal();
+    })
+      .catch((err) => {
+        console.error(err)
+        this.messageService.add({ severity: 'error', summary: err.message, detail: 'Message Content' });
+    });
     }
 }

@@ -16,6 +16,7 @@ import {
 } from '@angular/forms';
 import { RestApiService } from '../../../../../services/api/rest-api.service';
 import { Paper } from '../../../../../../../models';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'AddResearch',
@@ -47,7 +48,7 @@ export class ModalComponent implements OnChanges {
   @Output() _closeModal = new EventEmitter<boolean>();
   @Output() getResearch = new EventEmitter<void>();
 
-  constructor(private restApi: RestApiService) {}
+  constructor(private restApi: RestApiService, private messageService: MessageService) {}
 
   researchForm = new FormGroup({
     title: new FormControl('', [Validators.required]),
@@ -91,6 +92,7 @@ export class ModalComponent implements OnChanges {
 
   closeModal() {
     this._closeModal.emit(false);
+    this.researchForm.reset()
   }
 
   handleSave(research: any) {
@@ -107,12 +109,20 @@ export class ModalComponent implements OnChanges {
       },
       body: JSON.stringify({
         ...data,
-        id: this.editResearch.id ? this.editResearch.id : undefined,
+        id: this.editResearch?.id ? this.editResearch?.id : undefined,
       }),
     })
       .then((response) => response.json())
-      .then((data) => console.log(data))
-      .catch((err) => console.error(err));
+      .then((data) => {
+        console.log(data)
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Research Successfully Added' });
+        this.researchForm.reset()
+        this.closeModal();
+    })
+      .catch((err) => {
+        console.error(err)
+        this.messageService.add({ severity: 'error', summary: err.message, detail: 'Message Content' });
+    });
 
     // this.restApi.post('api/v1/paper/add', data);
   }
