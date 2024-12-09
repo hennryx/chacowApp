@@ -48,13 +48,10 @@ export class ModalComponent implements OnChanges {
     }
 
     handleSaveSubject(documents: any) {
-        const endpoint =
-            'http://localhost:3000/api/v1/material/' +
-            (this.editDocuments?.id ? 'update' : 'add');
-
         let data = this.documentsForm.value;
+        console.log(data);
         
-        fetch(endpoint, {
+        /* fetch(endpoint, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -74,6 +71,6 @@ export class ModalComponent implements OnChanges {
             .catch((err) => {
                 console.error(err)
                 this.messageService.add({ severity: 'error', summary: err.message, detail: 'Message Content' });
-            });
+            }); */
     }
 }

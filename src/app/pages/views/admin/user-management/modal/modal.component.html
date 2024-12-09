@@ -1,9 +1,9 @@
 <div class="fixed inset-0 z-10 flex items-center justify-center w-full h-full bg-black bg-opacity-50"
-    *ngIf="isEditModalOpen">
+    *ngIf="isModalOpen">
     <div class="w-full max-w-md p-6 bg-white rounded-lg shadow-lg">
         <div class="flex justify-between items-center mb-4">
             <h3 class="text-lg font-semibold text-gray-700">
-                Update User
+                {{isEditMode ? 'Update ' : 'Add ' }} User
             </h3>
             <div class="cursor-pointer" (click)="closeModal()">
                 <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
@@ -17,7 +17,7 @@
                 </svg>
             </div>
         </div>
-        <form (submit)="handleUpdateUser($event)" [formGroup]="userForm">
+        <form (submit)="handleAddUser($event)" [formGroup]="userForm">
             <div class="max-h-[500px] overflow-y-auto">
                 <div class="flex flex-row gap-2">
                     <div class="mb-4">
@@ -36,19 +36,15 @@
                     <input formControlName="lastname" type="text" placeholder="Last name"
                         class="w-full px-4 py-2 mt-1 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" />
                 </div>
-                <!-- <div class="mb-4">
-                    <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
-                    <input formControlName="password" type="text" placeholder="Password"
+                <div class="mb-4">
+                    <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                    <input formControlName="email" type="text" placeholder="Email"
                         class="w-full px-4 py-2 mt-1 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" />
-                </div> -->
-                <div class="mb-4 flex flex-row gap-2">
-                    <input formControlName="isAdmin" type="checkbox" name="isAdmin" id="isAdmin">
-                    <label for="isAdmin">Promote as Admin</label>
                 </div>
 
                 <div class="flex justify-end my-4">
                     <button type="submit" class="px-4 py-2 text-white bg-[#012970] rounded-lg hover:bg-blue-700">
-                        Update
+                        {{isEditMode ? 'Update' : 'Add' }}
                     </button>
                 </div>
             </div>

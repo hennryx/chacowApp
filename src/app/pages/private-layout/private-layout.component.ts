@@ -14,27 +14,18 @@ import { AuthService } from '../../services/auth/auth.service';
   styleUrl: './private-layout.component.css'
 })
 export class PrivateLayoutComponent implements OnInit{
-    title: string = 'Atete';
+    title: string = 'RET AIMS';
     isOpen: boolean = true;
     isLogin: boolean  = false;
     isSidebarExpanded: boolean =true;
     showSidebarAndHeader: boolean = true;
-    userData: User | null = null;
+    userData: any = null;
 
     constructor(private authService: AuthService, private router: Router) {}
 
     ngOnInit() {
-        if(this.authService.isLoggedIn()) {
-            this.authService.getUserData().subscribe({
-                next: (response) => {
-                    this.userData = response;
-                    this.isLogin = this.authService.isLoggedIn()
-                },
-                error: (err) => {
-                    console.log(err);
-                }
-            })
-        }
+        const storedUserData = localStorage.getItem('userData');
+        this.userData = storedUserData ? JSON.parse(storedUserData) : null;
     }
 
     handleOpenSidebar() {

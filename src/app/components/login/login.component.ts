@@ -42,9 +42,6 @@ export class LoginComponent {
     handleSubmit(event: Event) {
         event.preventDefault();
         if (this.loginForm.valid) {
-            console.log('Login details');
-            console.table(this.loginForm.value);
-
             const { email, password } = this.loginForm.value;
             const userData: any = this.authService.login(email!, password!);
 
@@ -52,6 +49,7 @@ export class LoginComponent {
                             
             let access = accessRoutes[userData?.role];
             this.authService.setUserData(userData);
+            localStorage.setItem('userData', JSON.stringify(userData))
             console.log(access[0].path);
             
             this.router.navigate([access[0].path]);

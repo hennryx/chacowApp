@@ -14,10 +14,9 @@ import { accessRoutes } from '../../config/access.config';
 })
 export class SidebarComponent implements OnInit {
     @Input() isOpen: boolean = true;
-    @Input() title: string = ""
+    @Input() title: string = "RET AIMS"
 
     availableRoutes: { path: string; title: string; icon: string }[] = [];
-
 
     constructor(private authService: AuthService, private router: Router, private messageService: MessageService) { }
     ngOnInit(): void {
