@@ -17,7 +17,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 export class AppComponent implements OnInit {
     currentUser: User | null = null;
-    title: string = 'Atete';
+    title: string = 'RET AIMS';
     isLogin: boolean = false;
 
     constructor(private authService: AuthService, private router: Router, private messageService: MessageService) { }
