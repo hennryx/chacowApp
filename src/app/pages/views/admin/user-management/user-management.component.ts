@@ -24,6 +24,11 @@ export class UserManagementComponent implements OnInit{
     handleFormModal() {
         this.isEditModalOpen = !this.isEditModalOpen;
     }
+    
+    handleCloseFormModal() {
+        this.isEditModalOpen = !this.isEditModalOpen;
+        this.getUsers();
+    }
 
     openEditModal(user: any) {
         this.isEditModalOpen = !this.isEditModalOpen;

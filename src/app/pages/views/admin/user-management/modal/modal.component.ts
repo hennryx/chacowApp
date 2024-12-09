@@ -28,6 +28,7 @@ export class ModalComponent implements OnChanges {
     constructor(private restApi: RestApiService, private messageService: MessageService) { }
 
     userForm = new FormGroup({
+        id: new FormControl(0),
         firstname: new FormControl('', [Validators.required]),
         middlename: new FormControl(''),
         lastname: new FormControl('', [Validators.required]),
@@ -46,6 +47,7 @@ export class ModalComponent implements OnChanges {
     }
 
     closeModal() {
+        this.userForm.reset()
         this._closeModal.emit(false)
     }
 
@@ -70,6 +72,7 @@ export class ModalComponent implements OnChanges {
             .then((data) => {
                 console.log(data)
                 this.messageService.add({ severity: 'success', summary: 'Success', detail: 'User Promoted Successfully' });
+                this.closeModal();
             })
             .catch((err) => {
                 console.error(err)
